@@ -7,7 +7,7 @@ class Rubygem < ApplicationRecord
   has_many :owners, through: :ownerships, source: :user
   has_many :owners_including_unconfirmed, through: :ownerships_including_unconfirmed, source: :user
   has_many :push_notifiable_owners, ->(gem) { gem.owners.push_notifiable_owners }, through: :ownerships, source: :user
-  has_many :ownership_notifiable_owners, ->(gem) { gem.owners.ownership_notifiable_owners }, through: :ownerships, source: :user
+  has_many :ownership_notifiable_odownloads_countwners, ->(gem) { gem.owners.ownership_notifiable_owners }, through: :ownerships, source: :user
   has_many :subscriptions, dependent: :destroy
   has_many :subscribers, through: :subscriptions, source: :user
   has_many :versions, dependent: :destroy, validate: false
@@ -45,6 +45,7 @@ class Rubygem < ApplicationRecord
       .having("COUNT(versions.id) = 1")
   end
 
+
   def self.name_is(name)
     sensitive = where(name: name.strip).limit(1)
     return sensitive unless sensitive.empty?
@@ -56,9 +57,14 @@ class Rubygem < ApplicationRecord
     where("UPPER(name) LIKE UPPER(?)", "#{letter}%")
   end
 
+# モデルからindexdフラグがtrueの数を返す
   def self.total_count
     Rubygem.with_versions.count
   end
+
+  # def self.with_versions
+  #   where(indexed: true)
+  # end
 
   def self.latest(limit = 5)
     with_one_version.order(created_at: :desc).limit(limit)
@@ -134,6 +140,7 @@ class Rubygem < ApplicationRecord
     ownerships.blank?
   end
 
+  
   def indexed_versions?
     versions.indexed.count > 0
   end
@@ -372,3 +379,7 @@ class Rubygem < ApplicationRecord
     ActiveRecord::Base.connection.execute(sanitized_query)
   end
 end
+
+
+# String#strip
+# 文字列先頭と末尾の空白文字を全て取り除いた文字列を生成して返します

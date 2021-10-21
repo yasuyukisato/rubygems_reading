@@ -15,3 +15,6 @@ class Api::V2::VersionsController < Api::BaseController
     end
   end
 end
+
+# どういう処理で、なにをフックにコントローラーが動くのか
+# →routeをみる

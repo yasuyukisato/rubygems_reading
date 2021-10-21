@@ -4,12 +4,15 @@
 <h1 class="home__heading"><%= t '.find_blurb' %></h1>
 <div class="home__search-wrap">
   <%= form_tag search_path, :method => :get do %>
+    # searches_controllerに飛ぶ
     <%= search_field_tag :query, params[:query], :placeholder => t('layouts.application.header.search_gem_html'), autofocus: current_page?(root_url), :id => 'home_query', :class => "home__search", :autocomplete => "off" %>
     <ul id="suggest-home" class="suggest-list"></ul>
     <%= label_tag :home_query do %>
       <span class="t-hidden"><%= t('layouts.application.header.search_gem_html') %></span>
+      # 検索のスペース
       <center>
         <%= link_to t("advanced_search"), advanced_search_path, class: "home__advanced__search t-link--has-arrow"%>
+        # 高度な検索
       </center>
     <% end %>
     <%= submit_tag '⌕', :name => nil, :class => "home__search__icon" %>
@@ -17,14 +20,46 @@
 </div>
 <div class="home__cta-wrap">
   <% if @downloads_count %>
+  downloads_count
+  # Homeコントローラ#index
     <h2 class="home__downloads">
       <p><%= number_with_delimiter(@downloads_count) %></p>
       <span class="home__downloads__desc"><%= t('.downloads_counting_html') %></span>
     </h2>
   <% end %>
   <%= link_to t('.learn.install_rubygems'), page_url("download"), :class => "home__join #{@downloads_count.nil? ? 'no-download-count' : ''}", "data-icon" => ">" %>
+  <%
+=begin%>
+
+・page_urlでpages/download.html.erbに遷移 
+・number_with_delimiter(数値 [, オプション])
+　桁区切り文字を追加
+
+<%
+=end%>
 </div>
 <div class="home__links">
   <%= link_to t('layouts.application.footer.status'), "https://status.rubygems.org", class: "home__link", "data-icon" => "⌁" %>
   <%= link_to t('layouts.application.footer.uptime'), "https://uptime.rubygems.org", class: "home__link", "data-icon" => "⧖" %>
 </div>
+
+<%
+=begin%>
+tメソッド
+tはtranslateの頭文字からきています。
+https://qiita.com/tiktak/items/a70ef7940fa4710f37cb
+
+
+例)
+ビューファイルに次のように書くと、
+<%= t("fruits.apple") %>
+<%= t("fruits.orange") %>
+ロケールの設定がja(日本語)であればja.ymlを、en(英語)であればen.ymlを読み込みます。
+
+config/locales/ja.yml
+ja:
+  fruits:
+    apple: "りんご"
+    orange: "みかん" 
+<%
+=end%>

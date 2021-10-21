@@ -53,6 +53,7 @@ module Gemcutter
     config.plugins = [:dynamic_form]
 
     config.eager_load_paths << Rails.root.join("lib")
+    # lib以下のクラスファイルを読み込む
     config.toxic_domains_filepath = Rails.root.join("vendor", "toxic_domains_whole.txt")
   end
 

@@ -68,9 +68,10 @@ class ApplicationController < ActionController::Base
 
   def set_page(max_page = Gemcutter::MAX_PAGES)
     sanitize_params
+    # 114行
     @page = Gemcutter::DEFAULT_PAGE && return unless params.key?(:page)
     redirect_to_page_with_error && return unless valid_page_param?(max_page)
-
+    # 99,107行目
     @page = params[:page].to_i
   end
 
@@ -105,6 +106,7 @@ class ApplicationController < ActionController::Base
 
   def valid_page_param?(max_page)
     params[:page].respond_to?(:to_i) && params[:page].to_i.between?(Gemcutter::DEFAULT_PAGE, max_page)
+    # 1
   end
 
   def reject_null_char_param
@@ -125,3 +127,17 @@ class ApplicationController < ActionController::Base
     session[:verification] && session[:verification] > Time.current
   end
 end
+
+# メソッド解説
+# 1
+# between?
+# 3.between?(1, 5)               # => true
+# 6.between?(1, 5)               # => false
+
+# key? キーの存在を確認
+# p({1 => "one"}.key?(1)) # => true
+# p({1 => "one"}.key?(2)) # => false
+
+# 100行目
+# controller_path で、controller名が
+# action_name で、action名が取得できる

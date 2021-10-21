@@ -18,6 +18,7 @@ class GemDownload < ApplicationRecord
 
     def total_count
       count_for
+      # private以下に記述
     end
 
     # version_id: 0 stores count for total gem downloads
@@ -78,6 +79,8 @@ class GemDownload < ApplicationRecord
     def count_for(rubygem_id: 0, version_id: 0)
       count = GemDownload.where(rubygem_id: rubygem_id, version_id: version_id).pick(:count)
       count || 0
+      # キーワード引数としてデフォルト値を定義している→引数が渡って来なければrubygem_id: 0, version_id: 0が出力される
+      # pickメソッド→whereやorderなどで取得済みのモデルから先頭のレコードの値を1件取得
     end
 
     # updates the downloads field of rubygems in DB and ES index

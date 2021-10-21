@@ -1,0 +1,5 @@
+・ruby2.7.4ではrailsコマンドは使えず,rakeコマンドを使う
+  cd ~/.rbenv/versions/2.7.4/bin
+  ls
+  >> bundle  bundler erb     gem     irb     rake    rdoc    ri      ruby
+

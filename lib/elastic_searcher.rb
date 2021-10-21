@@ -13,6 +13,8 @@ class ElasticSearcher
     [error_msg(e), result]
   end
 
+  # gem "elasticsearch-rails"を使っている　全文検索ができるgem
+
   def api_search
     result = Rubygem.__elasticsearch__.search(search_definition(for_api: true)).page(@page)
     result.map(&:_source)
