@@ -47,6 +47,7 @@ class SessionsController < Clearance::SessionsController
     params.require(:verify_password).permit(:password)
   end
 
+  # ログイン
   def do_login
     sign_in(@user) do |status|
       if status.success?
@@ -57,6 +58,8 @@ class SessionsController < Clearance::SessionsController
       end
     end
   end
+
+  # sign_inメソッド → clearance.rb
 
   def login_failure(message)
     StatsD.increment "login.failure"

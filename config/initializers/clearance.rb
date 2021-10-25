@@ -17,6 +17,7 @@ class Clearance::Session
     user = user_from_remember_token(remember_token)
 
     @current_user = user if user&.remember_me?
+    # userががnilでなければremember_me?メソッドを呼び出し、@current_userにuserを格納する
   end
 
   def sign_in(user)
@@ -32,3 +33,7 @@ class Clearance::Session
     yield(status) if block_given?
   end
 end
+
+
+# xxx&.yyy
+# 通称「ぼっち演算子」　xxx が nil でないときにメソッドyyyを呼び出す

@@ -1,4 +1,5 @@
 EmailConfirmationMailer = Struct.new(:user_id) do
+  # EmailConfirmationMailerクラスを作成
   def perform
     user = User.find(user_id)
 
@@ -15,6 +16,7 @@ end
 # 一般的には「わざわざ明示的にクラスを定義するほどでもないケースに向いている」などと言われる
 
 # Structを使ってUserクラス（Userの構造体）を作成する
+# User = Struct.new(:first_name, :last_name)
 
 # Structクラスから作成されたUserクラスを使う
 # user = User.new('Alice', 'Ruby')

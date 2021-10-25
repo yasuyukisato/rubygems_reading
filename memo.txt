@@ -3,3 +3,6 @@
   ls
   >> bundle  bundler erb     gem     irb     rake    rdoc    ri      ruby
 
+  バッチを実行
+  rails api_keys:migrate 
+

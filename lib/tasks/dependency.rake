@@ -17,3 +17,5 @@ namespace :dependency do
     end
   end
 end
+
+# joinsメソッドとは、関連するテーブル同士を結合(内部結合)してくれるメソッド
